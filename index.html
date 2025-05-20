@@ -1,1 +1,322 @@
 
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Orange Search
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js">
+    </script>
+    
+    <script>
+      console.log('%cWelcome to ORANGE-SEARCH!', 'color: #f25aaf;background:#80e4dfc4;padding:10px;border-radius:10px;border: 1px solid rgb(255, 255, 255, 0.5);border-right: 1px solid rgb(255, 255, 255, 0.2);border-bottom: 1px solid rgb(255, 255, 255, 0.2);font-size:20px;');    
+   
+      // Right Click
+      document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+      });
+      
+      // Dev
+              document.addEventListener("keydown", function(event) {
+                  if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
+                      event.preventDefault();
+                  }
+              });
+      
+      document.onkeydown = function(e) {
+          if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 67 || e.keyCode === 83)) {
+              return false;
+          }
+          if (e.keyCode === 123) {
+              return false;
+          }
+          if (e.ctrlKey && e.shiftKey && e.keyCode === 'I'.charCodeAt(0)) {
+              return false;
+          }
+          if (e.ctrlKey && e.shiftKey && e.keyCode === 'J'.charCodeAt(0)) {
+              return false;
+          }
+          if (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0)) {
+              return false;
+          }
+      }
+
+      // Copy
+      document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      });
+      
+      // Select
+      document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+      });
+            
+      document.onkeydown = function(e) {
+        if(e.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
+      }
+      
+      // Save
+        window.addEventListener("keydown", function (e) {
+            if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                e.preventDefault();
+            }
+        }, false);
+
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins',
+                sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        section {
+            display: flex;
+            justify-content:
+                center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
+        }
+
+        section .color {
+            position: absolute;
+            filter:
+                blur(150px);
+        }
+
+        section .color:nth-child(1) {
+            top: -350px;
+            width: 600px;
+            height: 600px;
+            background: #ff359b;
+        }
+
+        section .color:nth-child(2) {
+            bottom:
+                -150px;
+            left: 100px;
+            width: 500px;
+            height: 500px;
+            background: #fffd87;
+        }
+
+        section .color:nth-child(3) {
+            bottom: 50px;
+            right: 100px;
+            width: 500px;
+            height: 500px;
+            background: #00d2ff;
+        }
+
+        .box {
+            position: relative;
+        }
+
+        .box .square {
+            position: absolute;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 25px 45px rgb(0, 0, 0, 0.1);
+            border: 1px solid rgb(255, 255, 255, 0.5);
+            border-right: 1px solid rgb(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgb(255, 255, 255, 0.2);
+            background: rgb(255, 255, 255, 0.1);
+            border-radius:
+                10px;
+            animation: animate 10s linear infinite;
+            animation-delay: calc(-1s*var(--i));
+        }
+
+        @keyframes animate {
+
+            0%,
+            100% {
+                transform: translateY(-40px);
+            }
+
+            50% {
+                transform: translate(40px);
+            }
+        }
+
+        .box .square:nth-child(1) {
+            top:
+                -50px;
+            right: -60px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .box .square:nth-child(2) {
+            top: 150px;
+            left: -120px;
+            width: 100px;
+            height: 100px;
+            z-index: 2;
+        }
+
+        .box .square:nth-child(3) {
+            bottom: 50px;
+            right: -60px;
+            width: 80px;
+            height:
+                80px;
+            z-index: 2;
+        }
+
+        .box .square:nth-child(4) {
+            bottom: -80px;
+            left: 100px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .box .square:nth-child(5) {
+            top: -90px;
+            left:
+                140px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .container {
+            margin-bottom: 15px;
+            position: relative;
+            width:auto;
+            //min-height: 400px;
+            background: rgb(255, 255, 255, 0.1);
+            border-radius:
+                10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter:
+                blur(5px);
+            box-shadow: 0 25px 45px rgb(0, 0, 0, 0.1);
+            border: 1px solid rgb(255, 255, 255, 0.5);
+            border-right: 1px solid rgb(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgb(255, 255, 255, 0.2);
+            padding: 0;
+        }
+
+        .form {
+            position: relative;
+            padding: 40px;
+        }
+
+        .form a {
+            position: relative;
+            color: #666;
+            font-size: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom:
+                40px;
+        }
+
+        #wxbxbwjb {
+            text-align: center;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="color">
+        </div>
+        <div class="color">
+        </div>
+        <div class="color">
+        </div>
+        <div class="box">
+            <div class="square" style="--i:0;">
+            </div>
+            <div class="square" style="--i:1;">
+            </div>
+            <div class="square" style="--i:2;">
+            </div>
+            <div class="square" style="--i:3;">
+            </div>
+            <div class="square" style="--i:4;">
+            </div>
+            <div class="container">
+
+
+
+                <div class="form">
+                    <a href="https://orange-search.neocities.org/v1" class="text">
+                        Orange Search V1.0
+                    </a>
+                    
+
+
+
+                </div>
+                
+
+
+            </div>
+            <div id="wxbxbwjb">Copyright (c) 2021 Wxbxbwjb. All rights reserved. &gt; Oranger ! xuan :)</div>
+            <div id="result"></div>
+
+        </div>
+
+
+
+
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('https://ipinfo.io/json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('ip').textContent = data.ip;
+                    document.getElementById('city').textContent = data.city || 'Not available';
+                    document.getElementById('region').textContent = data.region || 'Not available';
+                    document.getElementById('loc').textContent = data.loc || 'Not available';
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                    document.getElementById('ip').textContent = 'Error fetching IP info';
+                });
+        });
+
+        function submitForm(event) {
+            alert("Orange Search V1.0 will no longer be supported due to CORS policy. This website will automatically close after a period of time.")
+            exit();
+        }
+
+    </script>
+
+
+</body>
